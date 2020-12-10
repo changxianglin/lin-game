@@ -24,7 +24,7 @@
   var Paddle = function() {
     var image = imageFromPath('paddle.png')
     var o = {
-      iamge: image,
+      image: image,
       x: 100,
       y: 250,
       speed: 15,
@@ -51,7 +51,7 @@
   var Ball = function() {
     var image = imageFromPath('ball.png')
     var o = {
-      iamge: image,
+      image: image,
       x: 100,
       y: 200,
       speedX: 10,
@@ -88,14 +88,14 @@
     g.canvas = canvas
     g.context = context
     // draw
-    g.drawImage = function(LinGame) {
-      g.context.drawImage(LinGame.iamge, LinGame.x, LinGame.y)
+    g.drawImage = function(linImage) {
+      g.context.drawImage(linImage.image, linImage.x, linImage.y)
     }
     // events
     window.addEventListener('keydown', function(event) {
       g.keydowns[event.key] = true
     })
-    window.addEventListener('keydoup', function(event) {
+    window.addEventListener('keyup', function(event) {
       g.keydowns[event.key] = false
     })
     // register
