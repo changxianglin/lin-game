@@ -2,6 +2,7 @@ var LinGame = function(fps, images, runCallback) {
   // images 是一个对象， 里面是图片的引用名字和路径
   // 程序会在所有图片载入成功后运行
   var g = {
+    scene: null,
     actions: {},
     keydowns: {},
     images: {},
@@ -21,6 +22,15 @@ var LinGame = function(fps, images, runCallback) {
   window.addEventListener('keyup', function(event) {
     g.keydowns[event.key] = false
   })
+  // update
+  g.update = function() {
+    g.scene.update()
+  }
+  // draw
+  g.draw = function() {
+    g.scene.draw()
+  }
+
   // register
   g.registerAction = function(key, callback) {
     g.actions[key] = callback
@@ -64,7 +74,7 @@ for (var i = 0; i < names.length; i++) {
     // 所有图片载入成功后，调用 run
     loads.push(1)
     if (loads.length == names.length) {
-      g.run()
+      g.__start()
     }
   }
 }
@@ -78,12 +88,18 @@ g.imageByName = function(name) {
 
   return image
 }
-g.run = function() {
-  runCallback(g)
-  // 开始运行程序
+g.runWithScene = function(scene) {
+    g.scene = scene
+    // 开始运行程序
     setTimeout(function() {
       runloop()
     }, 1000/fps)
+}
+g.replaceScene = function(scene) {
+  g.scene = scene
+}
+g.__start = function(scene) {
+  runCallback(g)
 }
 
   return g
