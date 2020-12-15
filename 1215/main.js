@@ -85,7 +85,42 @@ var __main = function() {
       }
     }
 
+    // mouse event
+    var enableDrag = false
+    game.canvas.addEventListener('mousedown', function(event) {
+      var x = event.offsetX
+      var y = event.offsetY
+      log(x, y, event)
+      // 检查是否点中了 ball
+      if (ball.hasPoint(x, y)) {
+        // 设置拖拽状态
+        enableDrag = true
+      }
+    })
+
+    game.canvas.addEventListener('mousemove', function(event) {
+      var x = event.offsetX
+      var y = event.offsetY
+      // log(x, y)
+      if (enableDrag) {
+        log(x, y)
+        ball.x = x
+        ball.y = y
+      }
+    })
+
+    game.canvas.addEventListener('mouseup', function(event) {
+      var x = event.offsetX
+      var y = event.offsetY
+      log(x, y)
+      enableDrag = false
+    })
+
     game.draw = function() {
+      // draw 背景
+      game.context.fillStyle = '#554'
+      game.context.fillRect(0, 0, 400, 300)
+
       // draw
       game.drawImage(paddle)
       game.drawImage(ball)
@@ -100,6 +135,7 @@ var __main = function() {
       game.context.fillText('分数: ' + score, 10, 290)
     }
 })
+
   enableDebugMode(game, true)
 }
 

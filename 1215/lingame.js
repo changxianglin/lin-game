@@ -7,7 +7,6 @@ var LinGame = function(fps, images, runCallback) {
     images: {},
   }
   var canvas = document.querySelector('#id-canvas')
-  log('canvas', canvas)
   var context = canvas.getContext('2d')
   g.canvas = canvas
   g.context = context
