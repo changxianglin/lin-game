@@ -25,7 +25,8 @@ class LinGame {
   }
 
   drawImage(img) {
-    this.context.drawImage(img.image, img.x, img.y)
+    // img 是一个 LinImage
+    this.context.drawImage(img.texture, img.x, img.y)
   }
   // update
   update() {
@@ -40,7 +41,7 @@ class LinGame {
   registerAction(key, callback){
     this.actions[key] = callback
   }
-  runloop = () => {
+  runloop() {
     log(window.fps)
     // events
     var g = this
@@ -63,19 +64,19 @@ class LinGame {
       g.runloop()
     }, 1000/window.fps)
   }
-  imageByName = name => {
+  textureByName(name){
     var g = this
     log('image by name', g.images)
     var img = g.images[name]
-    var image = {
-        w: img.width,
-        h: img.height,
-        image: img,
-    }
+    // var image = {
+    //     w: img.width,
+    //     h: img.height,
+    //     image: img,
+    // }
 
-    return image
+    return img
   }
-  runWithScene = scene => {
+  runWithScene(scene) {
     var g = this
     g.scene = scene
     // 开始运行程序

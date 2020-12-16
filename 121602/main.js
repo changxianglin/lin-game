@@ -36,14 +36,14 @@ var enableDebugMode = function(game, enable) {
 
 var __main = function() {
   var images = {
-    bullet: 'img/ball.png',
-    cloud: 'img/block.png',
-    player: 'img/paddle.png',
-    sky: 'img/paddle.png',
+    bullet: 'img/bullet.png',
+    cloud: 'img/cloud.png',
+    player: 'img/player.png',
+    sky: 'img/sky.png',
   }
 
   var game = LinGame.instance(30, images, function(g) {
-    var s = SceneTitle.new(g)
+    var s = Scene.new(g)
     g.runWithScene(s)
   })
 
