@@ -11,7 +11,6 @@ class Scene extends LinScene {
     this.player.x = 100
     this.player.y = 150
 
-    this.elements = []
     this.addElements(this.bg)
     this.addElements(this.player)
     this.addElements(this.cloud)
