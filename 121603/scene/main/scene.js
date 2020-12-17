@@ -1,17 +1,24 @@
 class Scene extends LinScene {
   constructor(game) {
     super(game)
+    this.setup()
+  }
+  setup() {
+    var game = this.game
     this.bg = LinImage.new(game, 'sky')
-    // game.registerAction('k', function() {
-    //   var s = Scene(game)
-    //   game.replaceScene(s)
-    // })
+    this.cloud = LinImage.new(game, 'cloud')
+    this.player = LinImage.new(game, 'player')
+    this.player.x = 100
+    this.player.y = 150
+
+    this.elements = []
+    this.addElements(this.bg)
+    this.addElements(this.player)
+    this.addElements(this.cloud)
   }
 
-  draw() {
-    // draw lables
-    // this.game.context.fillText('按 k 开始游戏', 10, 190)
-      this.game.drawImage(this.bg)
+  update() {
+    this.cloud.y += 1
   }
 }
 

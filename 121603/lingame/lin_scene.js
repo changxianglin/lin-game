@@ -1,15 +1,22 @@
 class LinScene {
   constructor(game) {
     this.game = game
+    this.elements = []
   }
   static new(game) {
-    log('处处花')
     var i = new this(game)
     return i
   }
 
+  addElements(img) {
+    this.elements.push(img)
+  }
+
   draw() {
-    // alert('一定要继承本函数')
+    for (var i = 0; i < this.elements.length; i++) {
+      var e = this.elements[i]
+      this.game.drawImage(e)
+    }
   }
 
   update() {
