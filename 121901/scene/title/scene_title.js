@@ -23,11 +23,22 @@ class Pipes {
     p1.y = randomBetween(-200, 0)
     p2.y = p1.y + p1.h + this.pipeSpace
   }
+  debug() {
+    this.管子横向间距 = config.管子横向间距.value
+    this.pipeSpace = config.pipe_space.value
+  }
   update() {
-    for (var p of this.pipes) {
-      p.x -= 5
-      if (p.x < -100) {
-        p.x += this.管子横向间距 * this.columsOfPipe
+    for (var i = 0; i < this.pipes.length / 2; i += 2) {
+      var p1 = this.pipes[i]
+      var p2 = this.pipes[i + 1]
+      p1.x -= 5
+      p2.x -= 5
+      if (p1.x < -100) {
+        p1.x += this.管子横向间距 * this.columsOfPipe
+      }
+      if (p1.x < -100) {
+        p2.x += this.管子横向间距 * this.columsOfPipe
+        this.resetPipesPosition(p1, p2)
       }
     }
   }
@@ -78,9 +89,13 @@ class SceneTitle extends LinScene {
     b.x = 150
     b.y = 180
     this.bird = b
+    this.birdSpeed = 2
     this.addElements(b)
 
     this.setupInputs()
+  }
+  debug() {
+    this.birdSpeed = config.bird_speed.value
   }
   update() {
     super.update()
@@ -100,13 +115,13 @@ class SceneTitle extends LinScene {
     var self = this
     var b = this.bird
     self.game.registerAction('a', function(keyStatus) {
-      b.move(-2, keyStatus)
+      b.move(-self.birdSpeed, keyStatus)
     })
     self.game.registerAction('d', function(keyStatus) {
-      b.move(2, keyStatus)
+      b.move(self.birdSpeed, keyStatus)
     })
     self.game.registerAction('j', function(keyStatus) {
-      b.jump(2, keyStatus)
+      b.jump(keyStatus)
     })
   }
 }
