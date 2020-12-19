@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>game 1</title>
+    <style media="screen">
+      canvas {
+        border: 1px black solid;
+      }
+    </style>
+    <!-- lin game 相关文件-->
+    <script src="lingame/utils.js"></script>
+    <script src="lingame/mouse.js"></script>
+    <script src="lingame/lin_game.js"></script>
+    <script src="lingame/lin_scene.js"></script>
+    <script src="lingame/lin_image.js"></script>
+    <script src="lingame/lin_animation.js"></script>
+    <script src="lingame/lin_particle_system.js"></script>
+    <script src="lingame/lin_label.js"></script>
+    <!-- 场景文件 -->
+    <script src="scene/main/paddle.js"></script>
+    <script src="scene/main/ball.js"></script>
+    <script src="scene/main/block.js"></script>
+    <script src="scene/main/scene.js"></script>
+    <!-- 结束和标题场景 -->
+    <script src="scene/end/scene_end.js"></script>
+    <script src="scene/title/scene_title.js"></script>
+    <!-- 配置数据 -->
+    <script src="config.js"></script>
+  </head>
+  <body>
+<canvas id="id-canvas" width="288" height="440"></canvas>
+<hr>
+<input id=id-input-speed type="range" value="1">
+<div class="lin-controls">
+<!-- <div class="">
+  <label>
+    <input id="lin-auto-slider" type="range"
+      value=""
+      data-value="config.player_speed"
+      >
+    玩家速度：<span class="lin-label"></span>
+  </label>
+</div> -->
+</div>
+
+<script src="main.js"></script>
+<script>
+  var es = sel => document.querySelectorAll(sel)
+
+  var bindAll = function(sel, eventName, callback) {
+    var l = es(sel)
+    for (var i = 0; i < l.length; i++) {
+      var input = l[i]
+      input.addEventListener(eventName, function(event) {
+          callback(event)
+      })
+    }
+  }
+  var templateControl = function(key, item) {
+    var t = `
+    <div class="">
+      <label>
+        <input id="lin-auto-slider" type="range"
+          value="${item.value}"
+          data-value="config.${key}"
+          >
+        ${item._comment}<span class="lin-label"></span>
+      </label>
+    </div>
+    `
+    return t
+  }
+  var insertControls = function() {
+    var div = e('.lin-controls')
+    var keys = Object.keys(config)
+    for (var k of keys) {
+      var item = config[k]
+      var html = templateControl(k, item)
+      div.insertAdjacentHTML('beforeend', html)
+    }
+  }
+
+  var bindEvents = function() {
+    bindAll('#lin-auto-slider', 'input', function(event) {
+      var target = event.target
+      var bindVar = target.dataset.value
+      var v = target.value
+      eval(bindVar + '.value =' + v)
+      //
+      var label = target.closest('label').querySelector('.lin-label')
+      label.innerText = v
+    })
+  }
+
+  var __main = function() {
+    // 从配置文件生成 html 控件
+    insertControls()
+    // 绑定事件
+    bindEvents()
+  }
+
+  __main()
+</script>
+  </body>
+</html>
